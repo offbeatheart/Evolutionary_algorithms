@@ -41,7 +41,6 @@ def termination(target, solution):
     # elif greatest_of_each_generation > 3:
     #     if abs()
 
-
 class selection():
     def __init__(self):
         pass
@@ -66,23 +65,61 @@ class  variation():
     def __init__(self):
         pass
 
-    def parent_selector(self,pop): # should cloning be able to occur in this population my verdict no dolly will be made another day
+    def parent_selector(self,pop): 
         pop_len = len(pop)
         parent1 = -1
         parent2  =-1
-        while parent1 == parent2:
+        while parent1 == parent2: # should cloning be able to occur in this population my verdict no dolly will be made another day
             parent1 = random.randrange(0,pop_len)
             parent2 = random.randrange(0,pop_len)
+
+        return parent1 ,parent2
     
     def crossover(self,pop):
-        pass
+
+        parent1, parent2 = self.parent_selector(pop)
+
+        pivot = random.randrange(1,len(pop))
+
+        offspring = parent1[:pivot] + parent2[pivot:]
+
+        return offspring
+
+    def mutation(self,chromosome,mutation_rate):
+        newbred =chromosome
+
+        for allele in range(len(chromosome)):
+            if random.randrange(0,100 +1) <= mutation_rate * 100:
+                
+                temp_letter = chr(random.randrange(ord('a'),ord('z')+2))
+                if temp_letter == '{':
+                    temp_letter = ' '
+                newbred =  newbred[:allele] + temp_letter + newbred[allele +1:]
+
+        return newbred
+                
+
+
+
+
+
+
+        
+
+
+
+
 
 
 
         
 select = selection()
+var = variation()
+
 
 population = setup(population_size,target)
-print(population[0],target)
-print(evaluations(target,population[0]))
-population = select.tournment(population,population_size)
+print(population[0])
+print(var.mutation(population[0],0.1))
+# print(population[0],target)
+# print(evaluations(target,population[0]))
+# population = select.tournment(population,population_size)
