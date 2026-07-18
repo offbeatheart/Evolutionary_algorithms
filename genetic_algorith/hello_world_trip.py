@@ -2,9 +2,10 @@ import random
 
 target = "hello world"
 population = []
+population_size = 8
 pop_fit = []
 generation = 0
-# MaxGenerations = 60
+MaxGenerations = 60
 # greatest_of_each_generation = []
 
 def setup(population_size,target): # specific to the problem at hand 
@@ -45,22 +46,43 @@ class selection():
     def __init__(self):
         pass
 
-    def tournment(self,pop,pop_size,fit):
+    def tournment(self,pop,pop_size):
         offspring = []
 
         for fight in range(pop_size):
             contestant1 = random.randrange(0,pop_size)
             contestant2 = random.randrange(0,pop_size)
 
-            if fit[contestant1] >= fit[contestant2]:
+            print(pop[contestant1],pop[contestant2])
+
+            if evaluations(target,pop[contestant1]) >= evaluations(target,pop[contestant2]):
                 offspring.append(pop[contestant1])
             else:
                 offspring.append(pop[contestant1])
 
         return offspring
+
+class  variation():
+    def __init__(self):
+        pass
+
+    def parent_selector(self,pop): # should cloning be able to occur in this population my verdict no dolly will be made another day
+        pop_len = len(pop)
+        parent1 = -1
+        parent2  =-1
+        while parent1 == parent2:
+            parent1 = random.randrange(0,pop_len)
+            parent2 = random.randrange(0,pop_len)
     
+    def crossover(self,pop):
+        pass
+
+
+
+        
 select = selection()
 
-population = setup(8,target)
+population = setup(population_size,target)
 print(population[0],target)
 print(evaluations(target,population[0]))
+population = select.tournment(population,population_size)
