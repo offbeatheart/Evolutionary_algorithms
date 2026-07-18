@@ -7,3 +7,10 @@ def evaluations(target,solution):
             fitness += 1
     
     return fitness
+
+def termination(target, solution):
+    if target == solution:
+        return True 
+    else:
+        False 
+
