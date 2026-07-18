@@ -1,13 +1,12 @@
 import random
 
 target = "hello world"
-population_size = 1000
+population_size = 10
 population = []
 population_fitness = []
 
 generation = 0
 MaxGenerations = 10000000000000
-# greatest_of_each_generation = []
 
 def setup(population_size,target): # specific to the problem at hand 
     temp_population = []
@@ -36,13 +35,9 @@ def termination(target, pop):
         if target == pop[chromosome]:
             print(pop[chromosome])
             return True 
-        # elif generation == MaxGenerations:
-        #     print(pop[chromosome])
-        #     return True 
-    
+        elif generation == MaxGenerations:
+            return True  
     return False 
-    # elif greatest_of_each_generation > 3:
-    #     if abs()
 
 class selection():
     def __init__(self):
@@ -83,8 +78,6 @@ class variation():
         pivot = random.randrange(1,len(pop))
         offspring = pop[parent1][:pivot] + pop[parent2][pivot:]
 
-        # print(pop[parent1],pop[parent1][pivot],pop[parent2],pop[parent2][pivot],offspring)
-
         return offspring
 
     def mutation(self,chromosome,mutation_rate):
@@ -106,25 +99,14 @@ var = variation()
 
 population = setup(population_size,target)
 
-# for chromosome in range(population_size):
-#     if termination(target,population[chromosome]):
-#         break
-
 while not termination(target,population):
     population = select.tournment(population)
     next_gen = []
     for chromosome in range(population_size):
         temp =var.crossover(population)
         next_gen.append(var.mutation(temp,0.01))
-    
-    # print(population, next_gen)
+
     population = next_gen
     generation += 1 
 
 print(generation)
-# print(population)
-
-# print(var.mutation(population[0],0.1))
-# print(population[0],target)
-# print(evaluations(target,population[0]))
-# population = select.tournment(population,population_size)
