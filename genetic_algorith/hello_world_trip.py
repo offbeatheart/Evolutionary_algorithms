@@ -1,4 +1,7 @@
 target = "hello world"
+generation = 0
+MaxGenerations = 60
+greatest_of_each_generation = []
 
 def evaluations(target,solution):
     fitness = 0
@@ -11,6 +14,10 @@ def evaluations(target,solution):
 def termination(target, solution):
     if target == solution:
         return True 
+    elif generation == MaxGenerations:
+        return True 
     else:
-        False 
+        return False 
+    # elif greatest_of_each_generation > 3:
+    #     if abs()
 
