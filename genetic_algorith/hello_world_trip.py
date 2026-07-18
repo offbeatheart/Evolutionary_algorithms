@@ -1,11 +1,11 @@
 import random
 
 target = "hello world"
-alphabet = []
 population = []
+pop_fit = []
 generation = 0
-MaxGenerations = 60
-greatest_of_each_generation = []
+# MaxGenerations = 60
+# greatest_of_each_generation = []
 
 def setup(population_size,target): # specific to the problem at hand 
     temp_population = []
@@ -40,4 +40,27 @@ def termination(target, solution):
     # elif greatest_of_each_generation > 3:
     #     if abs()
 
-print(setup(8,target))
+
+class selection():
+    def __init__(self):
+        pass
+
+    def tournment(self,pop,pop_size,fit):
+        offspring = []
+
+        for fight in range(pop_size):
+            contestant1 = random.randrange(0,pop_size)
+            contestant2 = random.randrange(0,pop_size)
+
+            if fit[contestant1] >= fit[contestant2]:
+                offspring.append(pop[contestant1])
+            else:
+                offspring.append(pop[contestant1])
+
+        return offspring
+    
+select = selection()
+
+population = setup(8,target)
+print(population[0],target)
+print(evaluations(target,population[0]))
