@@ -1,11 +1,12 @@
 import random
 
 target = "hello world"
+population_size = 1000
 population = []
-population_size = 8
-pop_fit = []
+population_fitness = []
+
 generation = 0
-MaxGenerations = 60
+MaxGenerations = 10000000000000
 # greatest_of_each_generation = []
 
 def setup(population_size,target): # specific to the problem at hand 
@@ -28,16 +29,18 @@ def evaluations(target,solution):
     for letter in range(len(target)):
         if solution[letter] == target[letter]:
             fitness += 1
-    
     return fitness
 
-def termination(target, solution):
-    if target == solution:
-        return True 
-    elif generation == MaxGenerations:
-        return True 
-    else:
-        return False 
+def termination(target, pop):
+    for chromosome in range(len(pop)):
+        if target == pop[chromosome]:
+            print(pop[chromosome])
+            return True 
+        # elif generation == MaxGenerations:
+        #     print(pop[chromosome])
+        #     return True 
+    
+    return False 
     # elif greatest_of_each_generation > 3:
     #     if abs()
 
@@ -45,23 +48,21 @@ class selection():
     def __init__(self):
         pass
 
-    def tournment(self,pop,pop_size):
+    def tournment(self,pop):
+        pop_size = len(pop)
         offspring = []
 
         for fight in range(pop_size):
             contestant1 = random.randrange(0,pop_size)
             contestant2 = random.randrange(0,pop_size)
-
-            print(pop[contestant1],pop[contestant2])
-
             if evaluations(target,pop[contestant1]) >= evaluations(target,pop[contestant2]):
                 offspring.append(pop[contestant1])
             else:
-                offspring.append(pop[contestant1])
+                offspring.append(pop[contestant2])
 
         return offspring
 
-class  variation():
+class variation():
     def __init__(self):
         pass
 
@@ -80,8 +81,9 @@ class  variation():
         parent1, parent2 = self.parent_selector(pop)
 
         pivot = random.randrange(1,len(pop))
+        offspring = pop[parent1][:pivot] + pop[parent2][pivot:]
 
-        offspring = parent1[:pivot] + parent2[pivot:]
+        # print(pop[parent1],pop[parent1][pivot],pop[parent2],pop[parent2][pivot],offspring)
 
         return offspring
 
@@ -98,28 +100,31 @@ class  variation():
 
         return newbred
                 
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
         
 select = selection()
 var = variation()
 
-
 population = setup(population_size,target)
-print(population[0])
-print(var.mutation(population[0],0.1))
+
+# for chromosome in range(population_size):
+#     if termination(target,population[chromosome]):
+#         break
+
+while not termination(target,population):
+    population = select.tournment(population)
+    next_gen = []
+    for chromosome in range(population_size):
+        temp =var.crossover(population)
+        next_gen.append(var.mutation(temp,0.01))
+    
+    # print(population, next_gen)
+    population = next_gen
+    generation += 1 
+
+print(generation)
+# print(population)
+
+# print(var.mutation(population[0],0.1))
 # print(population[0],target)
 # print(evaluations(target,population[0]))
 # population = select.tournment(population,population_size)
