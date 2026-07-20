@@ -3,12 +3,12 @@ import random,time
 t0 = time.time()
 
 target = "hello world"
-population_size = 1000
+population_size = 4
 population = []
 population_fitness = []
 
 generation = 0
-MaxGenerations = 400
+MaxGenerations = 99999999999999
 
 def setup(population_size,target): # specific to the problem at hand 
     temp_population = []
@@ -110,6 +110,7 @@ while not termination(target,population):
 
     population = next_gen
     generation += 1 
+    print(generation)
 
 t1 = time.time()
 print("Generations:",generation)
