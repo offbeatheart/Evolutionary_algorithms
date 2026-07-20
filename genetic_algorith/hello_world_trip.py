@@ -1,14 +1,12 @@
-import random,time
+import random,time,csv
+def resultsSaver(population_size,generations,raw_data ):
+    f = open("raw_data.csv",'a')
+    f.write(str(population_size) + '\n')
+    f.write(str(generations) + '\n' )
+    f.write(str(raw_data))
+    f.close()
 
-t0 = time.time()
 
-target = "hello world"
-population_size = 4
-population = []
-population_fitness = []
-
-generation = 0
-MaxGenerations = 99999999999999
 
 def setup(population_size,target): # specific to the problem at hand 
     temp_population = []
@@ -94,25 +92,52 @@ class variation():
                 newbred =  newbred[:allele] + temp_letter + newbred[allele +1:]
 
         return newbred
-                
+
+pop_his = []
+total_gen_his = []
+raw_data = []
+for sample_size in range(100):
+    
+    gen_his = []
+
+
+    target = "hello world"
+    population_size = 10 + sample_size
+    pop_his.append(population_size)
+    population = []
+    population_fitness = []
+
+    generation = 0
+    MaxGenerations = 99999999999999
+
+    for trail in range(0,100):
+        # t0 = time.time()
+
         
-select = selection()
-var = variation()
 
-population = setup(population_size,target)
+                
+        select = selection()
+        var = variation()
 
-while not termination(target,population):
-    population = select.tournment(population)
-    next_gen = []
-    for chromosome in range(population_size):
-        temp =var.crossover(population)
-        next_gen.append(var.mutation(temp,0.01))
+        population = setup(population_size,target)
 
-    population = next_gen
-    generation += 1 
-    print(generation)
+        while not termination(target,population):
+            population = select.tournment(population)
+            next_gen = []
+            for chromosome in range(population_size):
+                temp =var.crossover(population)
+                next_gen.append(var.mutation(temp,0.01))
 
-t1 = time.time()
-print("Generations:",generation)
+            population = next_gen
+            generation += 1 
+            # print(generation)
 
-print("time:",t1-t0)
+        # t1 = time.time()
+        gen_his.append(generation)
+        
+        
+        # print("time:",t1-t0)
+    raw_data.append(gen_his)
+    total_gen_his.append(int(sum(gen_his)/100))
+
+resultsSaver(pop_his,total_gen_his,raw_data)
