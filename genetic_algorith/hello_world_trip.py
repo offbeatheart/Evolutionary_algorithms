@@ -1,7 +1,7 @@
 import random,time,csv
 def resultsSaver(population_size,generations,raw_data ):
     f = open("raw_data.csv",'a')
-    f.write(str(population_size) + '\n')
+    f.write('\n'+'\n'+str(population_size) + '\n')
     f.write(str(generations) + '\n' )
     f.write(str(raw_data))
     f.close()
@@ -96,13 +96,13 @@ class variation():
 pop_his = []
 total_gen_his = []
 raw_data = []
-for sample_size in range(100):
+for sample_size in range(10000):
     
     gen_his = []
 
 
     target = "hello world"
-    population_size = 10 + sample_size
+    population_size = 4 + sample_size
     pop_his.append(population_size)
     population = []
     population_fitness = []
